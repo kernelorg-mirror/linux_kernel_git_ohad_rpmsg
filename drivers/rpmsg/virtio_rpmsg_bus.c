@@ -1008,7 +1008,7 @@ static int rpmsg_probe(struct virtio_device *vdev)
 	return 0;
 
 free_coherent:
-	dma_free_coherent(vdev->dev.parent, RPMSG_TOTAL_BUF_SPACE, bufs_va,
+	dma_free_coherent(vdev->dev.parent->parent, RPMSG_TOTAL_BUF_SPACE, bufs_va,
 					vrp->bufs_dma);
 vqs_del:
 	vdev->config->del_vqs(vrp->vdev);
@@ -1043,7 +1043,7 @@ static void __devexit rpmsg_remove(struct virtio_device *vdev)
 
 	vdev->config->del_vqs(vrp->vdev);
 
-	dma_free_coherent(vdev->dev.parent, RPMSG_TOTAL_BUF_SPACE,
+	dma_free_coherent(vdev->dev.parent->parent, RPMSG_TOTAL_BUF_SPACE,
 					vrp->rbufs, vrp->bufs_dma);
 
 	kfree(vrp);
